@@ -1,0 +1,2845 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Treino Especial da Jordanya 🏋️‍♀️🎉 | Com a Personal Micheline</title>
+  
+  <!-- Fontes Modernas -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Biblioteca de Confete -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    :root {
+      --bg-dark: #090d16;
+      --bg-surface: #111827;
+      --card-bg: rgba(23, 31, 50, 0.85);
+      --card-border: rgba(255, 255, 255, 0.12);
+      
+      --pink-neon: #ec4899;
+      --pink-hover: #db2777;
+      --pink-glow: rgba(236, 72, 153, 0.45);
+      
+      --purple-accent: #a855f7;
+      --cyan-energy: #06b6d4;
+      --gold-star: #f59e0b;
+      --green-glow: #10b981;
+
+      --text-main: #f8fafc;
+      --text-sub: #cbd5e1;
+      --text-muted: #94a3b8;
+      
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-full: 9999px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 10% 15%, rgba(236, 72, 153, 0.18) 0%, transparent 40%),
+        radial-gradient(circle at 90% 85%, rgba(168, 85, 247, 0.18) 0%, transparent 45%),
+        radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.08) 0%, transparent 60%);
+      background-attachment: fixed;
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(28px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+      overflow-x: hidden;
+    }
+
+    /* Container Principal */
+    .app-container {
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      position: relative;
+    }
+
+    /* Top Bar de Controles */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 4px;
+    }
+
+    .badge-bday {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(236, 72, 153, 0.15);
+      border: 1px solid rgba(236, 72, 153, 0.35);
+      color: #f472b6;
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      box-shadow: 0 0 15px rgba(236, 72, 153, 0.2);
+    }
+
+    .top-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Botão de Música de Academia */
+    .music-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--card-border);
+      color: var(--text-main);
+      padding: 7px 13px;
+      border-radius: var(--radius-full);
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      touch-action: manipulation;
+    }
+
+    .music-btn:hover, .music-btn:active {
+      background: rgba(236, 72, 153, 0.2);
+      border-color: rgba(236, 72, 153, 0.4);
+    }
+
+    .music-btn.playing {
+      border-color: #ec4899;
+      background: rgba(236, 72, 153, 0.22);
+      box-shadow: 0 0 15px rgba(236, 72, 153, 0.4);
+      color: #fff;
+    }
+
+    /* Equalizer animado que pula no ritmo da música */
+    .eq-bars {
+      display: inline-flex;
+      align-items: flex-end;
+      gap: 2px;
+      height: 12px;
+      width: 14px;
+    }
+
+    .eq-bar {
+      width: 2.5px;
+      height: 3px;
+      background: #ec4899;
+      border-radius: 1px;
+      transition: height 0.1s ease;
+    }
+
+    .music-btn.playing .eq-bar:nth-child(1) {
+      animation: eqBounce 0.45s infinite ease-in-out alternate;
+    }
+    .music-btn.playing .eq-bar:nth-child(2) {
+      animation: eqBounce 0.65s infinite ease-in-out alternate 0.15s;
+    }
+    .music-btn.playing .eq-bar:nth-child(3) {
+      animation: eqBounce 0.4s infinite ease-in-out alternate 0.3s;
+    }
+    .music-btn.playing .eq-bar:nth-child(4) {
+      animation: eqBounce 0.55s infinite ease-in-out alternate 0.1s;
+    }
+
+    @keyframes eqBounce {
+      0% { height: 2px; }
+      100% { height: 12px; }
+    }
+
+    .audio-toggle-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--card-border);
+      color: var(--text-sub);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: all 0.2s ease;
+    }
+
+    .audio-toggle-btn:hover, .audio-toggle-btn:active {
+      background: rgba(255, 255, 255, 0.15);
+      transform: scale(1.05);
+    }
+
+    /* Pill de Boost da Micheline */
+    .boost-active-pill {
+      display: none;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(90deg, #f59e0b, #ec4899);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      box-shadow: 0 0 16px rgba(245, 158, 11, 0.6);
+      animation: pulseGlow 1.2s infinite ease-in-out;
+      margin-top: 6px;
+    }
+
+    /* Cabeçalho do App */
+    .header-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+    }
+
+    .header-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #ec4899, #a855f7, #06b6d4, #ec4899);
+      background-size: 300% 100%;
+      animation: gradientFlow 5s ease infinite;
+    }
+
+    @keyframes gradientFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #ffffff 40%, #f472b6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      font-size: 0.88rem;
+      color: var(--text-sub);
+      font-weight: 500;
+    }
+
+    /* Placar de Repetições e Barra de Progresso (3 Séries de 100) */
+    .scoreboard {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin-top: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .score-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .score-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+    }
+
+    .score-target {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--cyan-energy);
+    }
+
+    .score-numbers {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .counter-value {
+      font-family: 'Outfit', sans-serif;
+      font-size: 3.2rem;
+      font-weight: 900;
+      line-height: 1;
+      color: #fff;
+      text-shadow: 0 0 25px rgba(236, 72, 153, 0.5);
+      transition: transform 0.1s ease;
+    }
+
+    .counter-unit {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #f472b6;
+    }
+
+    /* Barra de Progresso com Marcos de 100 em 100 */
+    .progress-wrapper {
+      position: relative;
+      margin-top: 4px;
+    }
+
+    .progress-bar-bg {
+      width: 100%;
+      height: 12px;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #ec4899, #a855f7, #06b6d4);
+      border-radius: var(--radius-full);
+      transition: width 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 0 12px rgba(236, 72, 153, 0.6);
+    }
+
+    .milestone-dots {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 6px;
+      padding: 0 2px;
+    }
+
+    .milestone-badge {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .milestone-badge.unlocked {
+      color: #38bdf8;
+      font-weight: 700;
+      text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+    }
+
+    /* =======================================================
+       BONECO DA PERSONAL MICHELINE (GRITANDO QUE ELA CONSEGUE)
+       ======================================================= */
+    .trainer-widget {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(17, 24, 39, 0.95) 100%);
+      border: 1.5px solid rgba(236, 72, 153, 0.35);
+      backdrop-filter: blur(16px);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      position: relative;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4), 0 0 15px rgba(236, 72, 153, 0.15);
+      cursor: pointer;
+      overflow: visible;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .trainer-widget:hover, .trainer-widget:active {
+      transform: translateY(-2px);
+      border-color: rgba(236, 72, 153, 0.7);
+    }
+
+    /* Avatar SVG da Personal Micheline */
+    .trainer-avatar-box {
+      position: relative;
+      width: 78px;
+      height: 78px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .trainer-svg {
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 6px 12px rgba(236, 72, 153, 0.4));
+      animation: trainerCheer 1.8s infinite ease-in-out;
+      transform-origin: bottom center;
+    }
+
+    @keyframes trainerCheer {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      30% { transform: translateY(-4px) rotate(-3deg) scale(1.03); }
+      60% { transform: translateY(-2px) rotate(3deg) scale(1.02); }
+    }
+
+    .trainer-avatar-box.shouting .trainer-svg {
+      animation: shoutPop 0.5s ease;
+    }
+
+    @keyframes shoutPop {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.22) rotate(-6deg); }
+      100% { transform: scale(1); }
+    }
+
+    .trainer-speech-col {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex-grow: 1;
+    }
+
+    .trainer-badge-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .trainer-title {
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: #f472b6;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .trainer-tap-bonus {
+      font-size: 0.7rem;
+      color: #38bdf8;
+      font-weight: 700;
+      background: rgba(56, 189, 248, 0.12);
+      padding: 2px 7px;
+      border-radius: var(--radius-full);
+    }
+
+    .trainer-bubble {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      border-top-left-radius: 2px;
+      padding: 10px 12px;
+      position: relative;
+      transition: all 0.2s ease;
+    }
+
+    .trainer-quote {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.35;
+      letter-spacing: -0.2px;
+      transition: opacity 0.2s ease;
+    }
+
+    /* ÁREA DO BOTÃO PRINCIPAL DE CLIQUE */
+    .click-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      margin: 8px 0;
+    }
+
+    .click-btn-outer {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 190px;
+      height: 190px;
+    }
+
+    .pulse-ring {
+      position: absolute;
+      inset: -8px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(236, 72, 153, 0.35) 0%, transparent 70%);
+      animation: pulseGlow 2s infinite ease-in-out;
+      pointer-events: none;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { transform: scale(0.95); opacity: 0.5; }
+      50% { transform: scale(1.15); opacity: 0.9; }
+    }
+
+    .click-btn {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #f43f5e 0%, #ec4899 50%, #a855f7 100%);
+      border: 4px solid rgba(255, 255, 255, 0.25);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      box-shadow: 
+        0 12px 35px rgba(236, 72, 153, 0.55),
+        inset 0 -6px 12px rgba(0, 0, 0, 0.3),
+        inset 0 6px 12px rgba(255, 255, 255, 0.35);
+      transition: transform 0.08s ease, box-shadow 0.08s ease;
+      touch-action: manipulation;
+      outline: none;
+      z-index: 2;
+    }
+
+    .click-btn:active {
+      transform: scale(0.91);
+      box-shadow: 
+        0 4px 15px rgba(236, 72, 153, 0.4),
+        inset 0 -2px 6px rgba(0, 0, 0, 0.4),
+        inset 0 3px 6px rgba(255, 255, 255, 0.25);
+    }
+
+    .click-emoji {
+      font-size: 3.4rem;
+      line-height: 1;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+      transition: transform 0.1s ease;
+    }
+
+    .click-btn:active .click-emoji {
+      transform: scale(1.15) rotate(-5deg);
+    }
+
+    .click-subtext {
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #fff;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.4);
+    }
+
+    /* Números Flutuantes (+1, +3, +10) */
+    .floating-text {
+      position: absolute;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 900;
+      font-size: 1.7rem;
+      color: #38bdf8;
+      text-shadow: 0 0 15px rgba(56, 189, 248, 0.9), 0 2px 4px rgba(0,0,0,0.5);
+      pointer-events: none;
+      z-index: 10;
+      animation: floatUp 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    @keyframes floatUp {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, 0) scale(0.6);
+      }
+      20% {
+        opacity: 1;
+        transform: translate(-50%, -20px) scale(1.25);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -85px) scale(1);
+      }
+    }
+
+    .tap-hint {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* SEÇÃO DE UPGRADES BALANCEADOS PARA 300 REPETIÇÕES */
+    .upgrades-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(16px);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    }
+
+    .section-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--text-sub);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .upgrades-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .upgrade-btn {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 14px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-md);
+      color: var(--text-main);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      touch-action: manipulation;
+    }
+
+    .upgrade-btn:not(:disabled):hover, .upgrade-btn:not(:disabled):active {
+      background: rgba(236, 72, 153, 0.15);
+      border-color: rgba(236, 72, 153, 0.35);
+      transform: translateY(-1px);
+    }
+
+    .upgrade-btn:disabled {
+      opacity: 0.42;
+      cursor: not-allowed;
+      filter: grayscale(0.6);
+    }
+
+    .upgrade-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-align: left;
+    }
+
+    .upgrade-icon {
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      background: rgba(255, 255, 255, 0.07);
+      border-radius: var(--radius-sm);
+    }
+
+    .upgrade-text-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .upgrade-text-sub {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+    }
+
+    .upgrade-cost-badge {
+      background: rgba(245, 158, 11, 0.15);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      color: #fbbf24;
+      padding: 6px 10px;
+      border-radius: var(--radius-full);
+      font-size: 0.78rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .quick-unlock-btn {
+      background: transparent;
+      border: 1px dashed rgba(255, 255, 255, 0.25);
+      color: var(--text-muted);
+      border-radius: var(--radius-md);
+      padding: 10px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      margin-top: 4px;
+    }
+
+    .quick-unlock-btn:hover, .quick-unlock-btn:active {
+      background: rgba(255, 255, 255, 0.06);
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.4);
+    }
+
+    /* =======================================================
+       MURAL DE MENSAGENS (3 SÉRIES DE 100 REPETIÇÕES)
+       ======================================================= */
+    .messages-container {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 4px;
+    }
+
+    .messages-header-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(16px);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      text-align: center;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+    }
+
+    .messages-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .messages-subtitle {
+      font-size: 0.85rem;
+      color: var(--text-sub);
+    }
+
+    /* Cards resumidos clicáveis */
+    .summary-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      position: relative;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      overflow: hidden;
+    }
+
+    .summary-card:not(.locked):hover, .summary-card:not(.locked):active {
+      transform: translateY(-2px);
+      border-color: rgba(236, 72, 153, 0.5);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
+    }
+
+    .summary-card.locked {
+      opacity: 0.65;
+      filter: grayscale(0.8);
+      cursor: not-allowed;
+    }
+
+    .summary-thumb-box {
+      width: 72px;
+      height: 72px;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      flex-shrink: 0;
+      position: relative;
+      border: 1.5px solid rgba(255, 255, 255, 0.15);
+      background: #1e293b;
+    }
+
+    .summary-thumb {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .summary-lock-icon {
+      position: absolute;
+      inset: 0;
+      background: rgba(10, 15, 28, 0.75);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .summary-details {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex-grow: 1;
+      text-align: left;
+    }
+
+    .summary-badge-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .summary-badge {
+      font-size: 0.7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: var(--radius-full);
+    }
+
+    .badge-theme-1 {
+      background: rgba(244, 63, 94, 0.18);
+      border: 1px solid rgba(244, 63, 94, 0.4);
+      color: #fb7185;
+    }
+
+    .badge-theme-2 {
+      background: rgba(168, 85, 247, 0.18);
+      border: 1px solid rgba(168, 85, 247, 0.4);
+      color: #c084fc;
+    }
+
+    .badge-theme-3 {
+      background: rgba(245, 158, 11, 0.18);
+      border: 1px solid rgba(245, 158, 11, 0.4);
+      color: #fbbf24;
+    }
+
+    .summary-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .summary-status {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .summary-open-btn {
+      background: rgba(236, 72, 153, 0.15);
+      border: 1px solid rgba(236, 72, 153, 0.35);
+      color: #f472b6;
+      padding: 6px 12px;
+      border-radius: var(--radius-full);
+      font-size: 0.74rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+      margin-left: auto;
+    }
+
+    /* =======================================================
+       MODAL EM TELA INTEIRA (FULL SCREEN MESSAGE POPUP)
+       ======================================================= */
+    .fullscreen-modal {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      background: rgba(9, 13, 22, 0.96);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      z-index: 9999;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(28px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+    }
+
+    .fullscreen-modal.active {
+      display: flex;
+      animation: modalFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes modalFadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.96);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .modal-content-card {
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin: auto 0;
+      padding-bottom: 20px;
+    }
+
+    /* Top Bar do Modal */
+    .modal-nav-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+
+    .modal-badge {
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .modal-close-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: #fff;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      font-size: 1.25rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+    }
+
+    .modal-close-btn:hover, .modal-close-btn:active {
+      background: rgba(236, 72, 153, 0.3);
+      border-color: var(--pink-neon);
+      transform: scale(1.08);
+    }
+
+    /* Foto em Destaque na Tela Inteira (imagem1, imagem2, imagem3 - 100% Completa) */
+    .modal-photo-wrapper {
+      position: relative;
+      width: 100%;
+      min-height: 200px;
+      max-height: 54vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 2px solid rgba(255, 255, 255, 0.18);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.55), 0 0 20px rgba(236, 72, 153, 0.25);
+      background-color: #0b0f19;
+    }
+
+    /* Fundo suave borrado para preencher as laterais de fotos verticais/horizontais com as cores da foto */
+    .modal-photo-bg {
+      position: absolute;
+      inset: -20px;
+      width: calc(100% + 40px);
+      height: calc(100% + 40px);
+      object-fit: cover;
+      object-position: center;
+      filter: blur(25px) brightness(0.45);
+      opacity: 0.75;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .modal-photo {
+      position: relative;
+      z-index: 2;
+      width: auto;
+      max-width: 100%;
+      height: auto;
+      max-height: 52vh;
+      object-fit: contain; /* GARANTE QUE A IMAGEM APAREÇA 100% COMPLETA SEM CORTAR NADA */
+      display: block;
+      margin: 0 auto;
+      border-radius: var(--radius-sm);
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.5);
+      transition: transform 0.3s ease;
+    }
+
+    .modal-photo-wrapper:hover .modal-photo {
+      transform: scale(1.01);
+    }
+
+    /* Caixa de Texto da Mensagem */
+    .modal-message-box {
+      background: rgba(23, 31, 50, 0.85);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(16px);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+
+    .modal-headline {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .quote-mark {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.8rem;
+      line-height: 1;
+      color: rgba(236, 72, 153, 0.4);
+      position: absolute;
+      top: 10px;
+      left: 14px;
+      pointer-events: none;
+    }
+
+    .modal-message-text {
+      font-size: 1.02rem;
+      line-height: 1.7;
+      color: #f1f5f9;
+      position: relative;
+      z-index: 1;
+      white-space: pre-line;
+      text-align: left;
+    }
+
+    /* Botão Principal de Retornar / Continuar o Joguinho */
+    .continue-game-btn {
+      width: 100%;
+      height: 56px;
+      background: linear-gradient(135deg, #f43f5e 0%, #ec4899 50%, #a855f7 100%);
+      border: none;
+      border-radius: var(--radius-md);
+      color: #fff;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: 0.4px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 8px 25px rgba(236, 72, 153, 0.6), inset 0 2px 4px rgba(255, 255, 255, 0.3);
+      transition: all 0.2s ease;
+      touch-action: manipulation;
+    }
+
+    .continue-game-btn:hover, .continue-game-btn:active {
+      transform: translateY(-2px) scale(1.01);
+      box-shadow: 0 12px 30px rgba(236, 72, 153, 0.8);
+    }
+
+    .continue-arrow {
+      font-size: 1.3rem;
+      transition: transform 0.2s ease;
+    }
+
+    .continue-game-btn:hover .continue-arrow {
+      transform: translateX(4px);
+    }
+
+    /* Botão de Reiniciar Treino (Substitui Continuar no Final das 3 Mensagens) */
+    .restart-game-btn {
+      background: linear-gradient(135deg, #10b981 0%, #059669 45%, #0d9488 100%) !important;
+      box-shadow: 0 8px 25px rgba(16, 185, 129, 0.55), inset 0 2px 4px rgba(255, 255, 255, 0.35) !important;
+      animation: pulse-restart 2s infinite ease-in-out;
+    }
+
+    .restart-game-btn:hover, .restart-game-btn:active {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 12px 32px rgba(16, 185, 129, 0.8) !important;
+    }
+
+    @keyframes pulse-restart {
+      0%, 100% {
+        box-shadow: 0 8px 25px rgba(16, 185, 129, 0.55), inset 0 2px 4px rgba(255, 255, 255, 0.35);
+      }
+      50% {
+        box-shadow: 0 12px 32px rgba(16, 185, 129, 0.85), 0 0 25px rgba(52, 211, 153, 0.7), inset 0 2px 4px rgba(255, 255, 255, 0.5);
+      }
+    }
+
+    /* Card Celebratório de Parabéns por Concluir o Treino */
+    .modal-congrats-card {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.16) 0%, rgba(236, 72, 153, 0.18) 50%, rgba(16, 185, 129, 0.18) 100%);
+      border: 2px solid rgba(251, 191, 36, 0.75);
+      border-radius: var(--radius-lg);
+      padding: 16px 14px;
+      box-shadow: 0 10px 30px rgba(245, 158, 11, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      animation: congratsFadeIn 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes congratsFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(14px) scale(0.97);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .congrats-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .congrats-trophy-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #111827;
+      font-weight: 800;
+      font-size: 0.75rem;
+      letter-spacing: 0.8px;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      box-shadow: 0 2px 10px rgba(245, 158, 11, 0.4);
+    }
+
+    .congrats-sparkles {
+      font-size: 1.1rem;
+      animation: sparkleRotate 3s infinite linear;
+    }
+
+    @keyframes sparkleRotate {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+    }
+
+    .congrats-headline {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #fbbf24;
+      text-shadow: 0 0 15px rgba(251, 191, 36, 0.55);
+      margin: 0;
+      line-height: 1.3;
+    }
+
+    .congrats-desc {
+      font-size: 0.92rem;
+      color: #f8fafc;
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    .congrats-stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 2px;
+    }
+
+    .congrats-stat {
+      background: rgba(17, 24, 39, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-md);
+      padding: 8px 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .stat-num {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #38bdf8;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .stat-lbl {
+      font-size: 0.66rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Navegação Entre Séries no Modal */
+    .modal-series-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 2px 2px 8px 2px;
+      gap: 8px;
+    }
+
+    .series-nav-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--card-border);
+      color: var(--text-main);
+      padding: 8px 12px;
+      border-radius: var(--radius-full);
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      touch-action: manipulation;
+    }
+
+    .series-nav-btn:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.18);
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    .series-nav-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    .series-nav-dots {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-dot {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: var(--text-sub);
+      font-size: 0.8rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      touch-action: manipulation;
+    }
+
+    .nav-dot:hover:not(.locked) {
+      background: rgba(255, 255, 255, 0.22);
+      color: #fff;
+    }
+
+    .nav-dot.active {
+      background: var(--pink-neon);
+      border-color: var(--pink-light);
+      color: #fff;
+      box-shadow: 0 0 12px rgba(236, 72, 153, 0.7);
+      transform: scale(1.12);
+    }
+
+    .nav-dot.locked {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    /* Banner de Conclusão no Menu Principal */
+    .main-completion-banner {
+      width: 100%;
+      max-width: 440px;
+      margin: 12px auto 6px auto;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.18) 0%, rgba(6, 182, 212, 0.18) 100%);
+      border: 1.5px solid rgba(16, 185, 129, 0.65);
+      border-radius: var(--radius-lg);
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+      box-shadow: 0 8px 24px rgba(16, 185, 129, 0.25);
+      animation: congratsFadeIn 0.4s ease-out;
+    }
+
+    .main-completion-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-align: left;
+      width: 100%;
+    }
+
+    .main-completion-icon {
+      font-size: 2.2rem;
+      filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.6));
+    }
+
+    .main-completion-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #34d399;
+      line-height: 1.25;
+    }
+
+    .main-completion-desc {
+      font-size: 0.82rem;
+      color: var(--text-sub);
+      margin-top: 2px;
+    }
+
+    .main-restart-btn {
+      width: 100%;
+      height: 48px;
+      border: none;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: #fff;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 16px rgba(16, 185, 129, 0.45);
+      transition: all 0.2s ease;
+      touch-action: manipulation;
+    }
+
+    .main-restart-btn:hover, .main-restart-btn:active {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(16, 185, 129, 0.7);
+    }
+
+    /* Ação de Copiar Mensagem */
+    .modal-actions {
+      display: flex;
+    }
+
+    .action-btn {
+      flex: 1;
+      padding: 12px 14px;
+      border-radius: var(--radius-md);
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-copy {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-main);
+      border: 1px solid var(--card-border);
+    }
+
+    .btn-copy:hover, .btn-copy:active {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    /* Rodapé */
+    .app-footer {
+      text-align: center;
+      padding: 18px 10px;
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .bday-tagline {
+      font-weight: 700;
+      color: var(--text-sub);
+    }
+
+    /* Toast de Notificação */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(17, 24, 39, 0.95);
+      border: 1px solid var(--pink-neon);
+      color: #fff;
+      padding: 12px 20px;
+      border-radius: var(--radius-full);
+      font-size: 0.88rem;
+      font-weight: 700;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(236, 72, 153, 0.4);
+      z-index: 10001;
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      pointer-events: none;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    /* Ajustes Específicos para Telas Pequenas */
+    @media (max-width: 480px) {
+      body {
+        padding: max(12px, env(safe-area-inset-top)) 12px max(24px, env(safe-area-inset-bottom)) 12px;
+      }
+      .app-container {
+        gap: 14px;
+      }
+      h1 {
+        font-size: 1.55rem;
+      }
+      .counter-value {
+        font-size: 2.8rem;
+      }
+      .click-btn-outer {
+        width: 170px;
+        height: 170px;
+      }
+      .click-btn {
+        width: 145px;
+        height: 145px;
+      }
+      .click-emoji {
+        font-size: 3rem;
+      }
+      .trainer-widget {
+        padding: 12px;
+        gap: 10px;
+      }
+      .trainer-avatar-box {
+        width: 68px;
+        height: 68px;
+      }
+      .trainer-quote {
+        font-size: 0.88rem;
+      }
+      .modal-photo-wrapper {
+        min-height: 180px;
+        max-height: 48vh;
+      }
+      .modal-photo {
+        max-height: 46vh;
+      }
+      .modal-message-text {
+        font-size: 0.95rem;
+        line-height: 1.6;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-container">
+
+    <!-- Top Bar com Controle de Música e Efeitos -->
+    <div class="top-bar">
+      <div class="badge-bday">
+        <span>✨</span> Edição Especial de Aniversário
+      </div>
+      <div class="top-controls">
+        <button class="music-btn" id="musicBtn" onclick="toggleMusic()" title="Tocar / Pausar Música de Academia">
+          <span class="eq-bars">
+            <span class="eq-bar"></span>
+            <span class="eq-bar"></span>
+            <span class="eq-bar"></span>
+            <span class="eq-bar"></span>
+          </span>
+          <span id="musicLabel">Música: OFF</span>
+        </button>
+        <button class="audio-toggle-btn" id="audioToggleBtn" title="Ativar/Desativar Efeitos Sonoros" aria-label="Som">
+          🔊
+        </button>
+      </div>
+    </div>
+
+    <!-- Header Principal -->
+    <header class="header-card">
+      <h1>🏋️‍♀️ Treino da Jordanya</h1>
+      <p class="subtitle">Complete as repetições e desbloqueie as mensagens de aniversário!</p>
+
+      <!-- Placar (3 Séries de 100 Reps) -->
+      <div class="scoreboard">
+        <div class="score-meta">
+          <span class="score-label">Repetições Totais</span>
+          <span class="score-target" id="scoreTargetText">Meta: 300 Reps (3 Séries de 100)</span>
+        </div>
+        <div class="score-numbers">
+          <span class="counter-value" id="reps">0</span>
+          <span class="counter-unit">REPS</span>
+        </div>
+
+        <!-- Barra de Progresso com Marcos de 100 em 100 -->
+        <div class="progress-wrapper">
+          <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="progressBar"></div>
+          </div>
+          <div class="milestone-dots">
+            <span class="milestone-badge" id="mDot1">100 Reps 🔥</span>
+            <span class="milestone-badge" id="mDot2">200 Reps 💪</span>
+            <span class="milestone-badge" id="mDot3">300 Reps ✨</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- BONECO DA PERSONAL MICHELINE GRITANDO DO LADO -->
+    <section class="trainer-widget" id="trainerWidget" title="Toque na Personal Micheline para ganhar incentivo e bônus!">
+      <div class="trainer-avatar-box" id="trainerAvatar">
+        <!-- Ilustração SVG da Personal Micheline com Haltere, Apito e Postura Enérgica -->
+        <svg class="trainer-svg" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Brilho de Energia de Fundo -->
+          <circle cx="60" cy="60" r="50" fill="url(#trainerGlow)" opacity="0.3"/>
+          
+          <!-- Cabelo / Rabo de Cavalo Balançando -->
+          <path d="M72 32C85 24 98 32 94 48C90 62 80 64 74 62" stroke="#472a18" stroke-width="8" stroke-linecap="round"/>
+          <circle cx="75" cy="34" r="5" fill="#ec4899" />
+
+          <!-- Corpo / Ombros Tonificados -->
+          <path d="M35 105C35 88 45 78 60 78C75 78 85 88 85 105" fill="#1e293b"/>
+          <!-- Top de Treino Rosa / Preto -->
+          <path d="M42 86C45 80 52 79 60 79C68 79 75 80 78 86L75 105H45L42 86Z" fill="#ec4899"/>
+          <path d="M54 79V94H66V79" fill="#db2777" opacity="0.5"/>
+
+          <!-- Pescoço e Cabeça -->
+          <rect x="54" y="66" width="12" height="15" rx="3" fill="#ffd1b3"/>
+          <!-- Apito no Pescoço -->
+          <path d="M54 74L60 84L66 74" stroke="#fbbf24" stroke-width="2" stroke-linecap="round"/>
+          <rect x="57" y="83" width="6" height="5" rx="1.5" fill="#f59e0b"/>
+
+          <!-- Rosto -->
+          <circle cx="60" cy="50" r="21" fill="#ffd1b3"/>
+          
+          <!-- Faixa de Cabelo Esportiva -->
+          <path d="M40 44C43 36 77 36 80 44" stroke="#ec4899" stroke-width="5" stroke-linecap="round"/>
+          <!-- Franja estilosa -->
+          <path d="M43 41C48 34 58 35 60 41" stroke="#472a18" stroke-width="3" stroke-linecap="round"/>
+          
+          <!-- Olhos Expressivos Focados -->
+          <ellipse cx="53" cy="48" rx="2.5" ry="3" fill="#1e293b"/>
+          <ellipse cx="67" cy="48" rx="2.5" ry="3" fill="#1e293b"/>
+          <circle cx="54" cy="47" r="0.9" fill="#fff"/>
+          <circle cx="68" cy="47" r="0.9" fill="#fff"/>
+          <!-- Sobrancelhas Enérgicas -->
+          <path d="M50 43L56 44" stroke="#472a18" stroke-width="2" stroke-linecap="round"/>
+          <path d="M70 43L64 44" stroke="#472a18" stroke-width="2" stroke-linecap="round"/>
+          
+          <!-- Bochechas Coradas de Treino -->
+          <circle cx="49" cy="53" r="2.5" fill="#f43f5e" opacity="0.5"/>
+          <circle cx="71" cy="53" r="2.5" fill="#f43f5e" opacity="0.5"/>
+
+          <!-- Boca Aberta Gritando / Motivando -->
+          <path d="M55 54C55 54 60 63 65 54Z" fill="#881337"/>
+          <path d="M56 55H64" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>
+          <path d="M57 60C59 61 61 61 63 60" fill="#f43f5e"/>
+
+          <!-- Braço Esquerdo Flexionado / Haltere de Vitória -->
+          <path d="M38 88L24 72L26 62" stroke="#ffd1b3" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="20" y="56" width="12" height="6" rx="2" fill="#06b6d4"/>
+          <rect x="23" y="54" width="6" height="10" rx="1.5" fill="#38bdf8"/>
+
+          <!-- Braço Direito Gritando / Mão no Rosto ou Punho Cerrado -->
+          <path d="M82 88L96 76L90 66" stroke="#ffd1b3" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="90" cy="64" r="5" fill="#ffd1b3"/>
+
+          <!-- Ondas Sonoras do Grito da Personal -->
+          <path d="M88 48C94 48 98 52 98 56" stroke="#ec4899" stroke-width="2.5" stroke-linecap="round" opacity="0.8"/>
+          <path d="M93 42C101 42 106 48 106 56" stroke="#06b6d4" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+
+          <!-- Gradientes -->
+          <defs>
+            <radialGradient id="trainerGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(60 60) rotate(90) scale(50)">
+              <stop stop-color="#ec4899"/>
+              <stop offset="1" stop-color="#ec4899" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+        </svg>
+      </div>
+
+      <div class="trainer-speech-col">
+        <div class="trainer-badge-row">
+          <span class="trainer-title">📢 Personal Micheline</span>
+          <span class="trainer-tap-bonus" id="trainerTapBadge">Toque: +3 Reps + Boost 2X!</span>
+        </div>
+        <div class="trainer-bubble">
+          <div class="trainer-quote" id="trainerSpeech">
+            "BORA JORDANYA! VOCÊ CONSEGUE!"
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Botão Principal de Treino / Repetições -->
+    <main class="click-section" id="clickArea">
+      <div class="click-btn-outer">
+        <div class="pulse-ring"></div>
+        <button class="click-btn" id="clickBtn" aria-label="Fazer repetição de treino">
+          <span class="click-emoji">🏋️‍♀️</span>
+          <span class="click-subtext">Puxar Ferro</span>
+        </button>
+      </div>
+      <div class="boost-active-pill" id="boostPill">
+        <span>⚡</span> BOOST 2X DA MICHELINE ATIVADO!
+      </div>
+
+      <!-- Banner de Conclusão de Treino no Menu Principal -->
+      <div class="main-completion-banner" id="mainCompletionBanner" style="display: none;">
+        <div class="main-completion-info">
+          <span class="main-completion-icon">🏆</span>
+          <div>
+            <div class="main-completion-title">Treino Zerado com Sucesso! 🎉</div>
+            <div class="main-completion-desc">Parabéns por concluir as 3 séries (300 Reps), Jordanya!</div>
+          </div>
+        </div>
+        <button class="main-restart-btn" onclick="restartWorkout()">
+          <span>🔄 Reiniciar Treino</span>
+        </button>
+      </div>
+
+      <p class="tap-hint">👆 Toque no botão para fazer repetições!</p>
+    </main>
+
+    <!-- Áudio de Fundo Local (musica.mp3) e Palmas (palmas.mp3) -->
+    <audio id="localGymAudio" loop preload="auto" src="musica.mp3"></audio>
+    <audio id="applauseAudio" preload="auto" src="palmas.mp3"></audio>
+
+    <!-- Loja de Suplementos / Upgrades -->
+    <section class="upgrades-card" id="upgradesSection">
+      <div class="section-title">
+        <span>⚡</span> Suplementação da Jordanya
+      </div>
+      <div class="upgrades-list">
+        <button class="upgrade-btn" id="upg1" onclick="buyUpgrade(1, 25, 2)">
+          <div class="upgrade-info">
+            <span class="upgrade-icon">🥤</span>
+            <div>
+              <div class="upgrade-text-title">Scoop de Whey Protein</div>
+              <div class="upgrade-text-sub">+2 repetições por clique</div>
+            </div>
+          </div>
+          <span class="upgrade-cost-badge">25 Reps</span>
+        </button>
+
+        <button class="upgrade-btn" id="upg2" onclick="buyUpgrade(2, 75, 5)">
+          <div class="upgrade-info">
+            <span class="upgrade-icon">⚡</span>
+            <div>
+              <div class="upgrade-text-title">Creatina Pura Monohidratada</div>
+              <div class="upgrade-text-sub">+5 repetições por clique</div>
+            </div>
+          </div>
+          <span class="upgrade-cost-badge">75 Reps</span>
+        </button>
+
+        <button class="upgrade-btn" id="upg3" onclick="buyUpgrade(3, 150, 10)">
+          <div class="upgrade-info">
+            <span class="upgrade-icon">💊</span>
+            <div>
+              <div class="upgrade-text-title">Pré-Treino Insano</div>
+              <div class="upgrade-text-sub">+10 repetições por clique</div>
+            </div>
+          </div>
+          <span class="upgrade-cost-badge">150 Reps</span>
+        </button>
+      </div>
+
+      <!-- Atalho para quem quiser ler direto as mensagens -->
+      <button class="quick-unlock-btn" id="quickUnlockBtn" onclick="unlockAllMessages()">
+        <span>🔓</span> Desbloquear Todas as Mensagens Imediatamente
+      </button>
+    </section>
+
+    <!-- =======================================================
+         MURAL DE MENSAGENS (3 SÉRIES DE 100)
+         ======================================================= -->
+    <section class="messages-container" id="messagesContainer">
+      <div class="messages-header-card">
+        <div class="messages-title">
+          <span>💌</span> Mural de Homenagens da Jordanya
+        </div>
+        <p class="messages-subtitle">Complete cada série de 100 reps para abrir a mensagem em tela cheia!</p>
+      </div>
+
+      <!-- Card Resumo 1 (imagem1) -->
+      <div class="summary-card locked" id="sumCard1" onclick="handleSummaryCardClick(1)">
+        <div class="summary-thumb-box">
+          <img class="summary-thumb" id="sumImg1" src="imagem1.jpg" onerror="handleImgError(this, 'imagem1')" alt="imagem1">
+          <div class="summary-lock-icon" id="sumLock1">🔒</div>
+        </div>
+        <div class="summary-details">
+          <div class="summary-badge-row">
+            <span class="summary-badge badge-theme-1">Série 1 • 100 Reps</span>
+          </div>
+          <div class="summary-title">Bora Conquistar esse Novo Ciclo! 🔥</div>
+          <div class="summary-status" id="sumStatus1">Requer 100 Repetições</div>
+        </div>
+        <div class="summary-open-btn" id="sumBtn1" style="display: none;">
+          Ver 👁️
+        </div>
+      </div>
+
+      <!-- Card Resumo 2 (imagem2) -->
+      <div class="summary-card locked" id="sumCard2" onclick="handleSummaryCardClick(2)">
+        <div class="summary-thumb-box">
+          <img class="summary-thumb" id="sumImg2" src="imagem2.jpg" onerror="handleImgError(this, 'imagem2')" alt="imagem2">
+          <div class="summary-lock-icon" id="sumLock2">🔒</div>
+        </div>
+        <div class="summary-details">
+          <div class="summary-badge-row">
+            <span class="summary-badge badge-theme-2">Série 2 • 200 Reps</span>
+          </div>
+          <div class="summary-title">Beleza, Foco & Muita Massa Magra! 💪</div>
+          <div class="summary-status" id="sumStatus2">Requer 200 Repetições</div>
+        </div>
+        <div class="summary-open-btn" id="sumBtn2" style="display: none;">
+          Ver 👁️
+        </div>
+      </div>
+
+      <!-- Card Resumo 3 (imagem3) -->
+      <div class="summary-card locked" id="sumCard3" onclick="handleSummaryCardClick(3)">
+        <div class="summary-thumb-box">
+          <img class="summary-thumb" id="sumImg3" src="imagem3.jpg" onerror="handleImgError(this, 'imagem3')" alt="imagem3">
+          <div class="summary-lock-icon" id="sumLock3">🔒</div>
+        </div>
+        <div class="summary-details">
+          <div class="summary-badge-row">
+            <span class="summary-badge badge-theme-3">Série 3 • 300 Reps</span>
+          </div>
+          <div class="summary-title">Um Privilégio Ter Você na Minha Vida! ✨</div>
+          <div class="summary-status" id="sumStatus3">Requer 300 Repetições</div>
+        </div>
+        <div class="summary-open-btn" id="sumBtn3" style="display: none;">
+          Ver 👁️
+        </div>
+      </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer class="app-footer">
+      <div class="bday-tagline">Feito com muito carinho para celebrar a Jordanya! 🏋️‍♀️💖</div>
+      <div>Com o incentivo oficial da Personal Micheline!</div>
+    </footer>
+
+  </div>
+
+  <!-- =======================================================
+       MODAL DE MENSAGEM EM TELA INTEIRA (FULL SCREEN)
+       ======================================================= -->
+  <div class="fullscreen-modal" id="fullscreenModal" role="dialog" aria-modal="true">
+    <div class="modal-content-card">
+      
+      <!-- Topo do Modal com Badge e Botão Fechar -->
+      <div class="modal-nav-bar">
+        <span class="modal-badge badge-theme-1" id="modalBadge">
+          🔥 SÉRIE 1 DE 3 • INCENTIVO DE TREINO
+        </span>
+        <button class="modal-close-btn" onclick="closeFullScreenMessage()" title="Fechar" aria-label="Fechar">
+          ✕
+        </button>
+      </div>
+
+      <!-- Navegação Rápida Entre Séries no Modal -->
+      <div class="modal-series-nav" id="modalSeriesNav">
+        <button class="series-nav-btn" id="modalNavPrev" onclick="navigateModalMessage(-1)" title="Série Anterior">
+          ◀ Anterior
+        </button>
+        <div class="series-nav-dots" id="modalNavDots">
+          <span class="nav-dot active" id="navDot1" onclick="jumpToModalMessage(1)" title="Série 1 (100 Reps)">1</span>
+          <span class="nav-dot" id="navDot2" onclick="jumpToModalMessage(2)" title="Série 2 (200 Reps)">2</span>
+          <span class="nav-dot" id="navDot3" onclick="jumpToModalMessage(3)" title="Série 3 (300 Reps)">3</span>
+        </div>
+        <button class="series-nav-btn" id="modalNavNext" onclick="navigateModalMessage(1)" title="Próxima Série">
+          Próxima ▶
+        </button>
+      </div>
+
+      <!-- Foto em Destaque Tela Inteira (imagem1, imagem2, imagem3 - 100% Completa) -->
+      <div class="modal-photo-wrapper">
+        <img id="modalPhotoBg" class="modal-photo-bg" src="" alt="" aria-hidden="true">
+        <img id="modalPhotoImg" class="modal-photo" src="" alt="Foto de Aniversário" onerror="handleModalImgError(this)">
+      </div>
+
+      <!-- Mensagem -->
+      <div class="modal-message-box">
+        <span class="quote-mark">“</span>
+        <h2 class="modal-headline" id="modalHeadline">Bora Conquistar esse Novo Ciclo! 💥</h2>
+        <p class="modal-message-text" id="modalMessageText"></p>
+      </div>
+
+      <!-- PARABÉNS POR CONCLUIR SEU TREINO (Aparece no final das 3 mensagens) -->
+      <div class="modal-congrats-card" id="modalCongratsCard" style="display: none;">
+        <div class="congrats-header">
+          <span class="congrats-trophy-badge">🏆 META BATIDA! 300 REPS</span>
+          <div class="congrats-sparkles">✨ 🎉 ✨</div>
+        </div>
+        <h3 class="congrats-headline">🎉 Parabéns por concluir seu treino! 🏆</h3>
+        <p class="congrats-desc">
+          Você zerou com perfeição todas as 3 séries da Personal Micheline! Seu foco, determinação e alegria são contagiantes. Que esse novo ano venha com muita saúde, vitórias e bênçãos sem fim na sua vida, Jordanya!
+        </p>
+        <div class="congrats-stats-row">
+          <div class="congrats-stat">
+            <span class="stat-num">300</span>
+            <span class="stat-lbl">Repetições</span>
+          </div>
+          <div class="congrats-stat">
+            <span class="stat-num">3 / 3</span>
+            <span class="stat-lbl">Séries Pagas</span>
+          </div>
+          <div class="congrats-stat">
+            <span class="stat-num">100%</span>
+            <span class="stat-lbl">Treino Concluído</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- BOTÃO DE CONTINUAR O JOGUINHO (Séries 1 e 2) -->
+      <button class="continue-game-btn" id="btnContinueTreino" onclick="closeFullScreenMessage()">
+        <span>🏋️‍♀️ Continuar Treino / Joguinho</span>
+        <span class="continue-arrow">➡️</span>
+      </button>
+
+      <!-- BOTÃO DE REINICIAR TREINO (Substitui o botão de continuar no final das 3 mensagens) -->
+      <button class="continue-game-btn restart-game-btn" id="btnReiniciarTreino" onclick="restartWorkout()" style="display: none;">
+        <span>🔄 Reiniciar Treino</span>
+        <span class="continue-arrow">🔥</span>
+      </button>
+
+      <!-- Ação de Copiar -->
+      <div class="modal-actions">
+        <button class="action-btn btn-copy" onclick="copyCurrentModalMessage()">
+          📋 Copiar Mensagem
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Toast de Notificação -->
+  <div class="toast" id="toastBox">
+    <span id="toastIcon">✨</span>
+    <span id="toastMsg">Mensagem copiada com sucesso!</span>
+  </div>
+
+  <script>
+    /* ========================================================
+       DADOS DAS 3 MENSAGENS E FOTOS (100 REPS POR SÉRIE)
+       ======================================================== */
+    const messagesData = {
+      1: {
+        id: 1,
+        part: "SÉRIE 1 DE 3 • INCENTIVO DE TREINO (100 REPS)",
+        badgeClass: "badge-theme-1",
+        badgeIcon: "🔥",
+        headline: "Bora Conquistar esse Novo Ciclo! 💥",
+        text: "Não para, não! Hoje você completa mais um ano de vida e esse novo ciclo é só mais uma série que você vai zerar com maestria. Cada desafio que vier pela frente é só peso pra te deixar mais forte. Continua com essa garra, foca no objetivo e dá o seu máximo, porque a vitória é sua. Bora conquistar esse ano novo, que o treino tá só começando! Parabéns!",
+        imageName: "imagem1",
+        reqReps: 100
+      },
+      2: {
+        id: 2,
+        part: "SÉRIE 2 DE 3 • GOSTOSA E MAROMBADA (200 REPS)",
+        badgeClass: "badge-theme-2",
+        badgeIcon: "💪",
+        headline: "Beleza, Foco & Muita Massa Magra! ✨",
+        text: "Feliz aniversário, maravilhosa! Hoje o parabéns não é só pela idade, mas por todo o suor, disciplina e dedicação pra ficar cada dia mais gostosa e marombada! Todo esse esforço no treino tá pagando muito a pena. Continua servindo beleza, foco e muita massa magra por onde passa. Aproveita muito o seu dia!",
+        imageName: "imagem2",
+        reqReps: 200
+      },
+      3: {
+        id: 3,
+        part: "SÉRIE 3 DE 3 • AMIZADE, SAÚDE E BÊNÇÃOS (300 REPS)",
+        badgeClass: "badge-theme-3",
+        badgeIcon: "✨",
+        headline: "Um Privilégio Ter Você na Minha Vida! ❤️",
+        text: "Feliz aniversário, minha amiga! Que o seu novo ano seja abençoado com muita saúde, paz de espírito e chuvas de bênçãos do céu. Que você continue tendo força para vencer cada adversidade que surgir no caminho, sabendo que nenhuma delas é maior que a sua luz. Olho para trás e vejo tantos anos de amizade e posso dizer que é um privilégio enorme ter você na minha vida. Saiba que, não importa o que aconteça ou o tempo que passe, eu estarei sempre aqui do seu lado para vibrar com cada conquista sua. Parabéns pelo seu dia!",
+        imageName: "imagem3",
+        reqReps: 300
+      }
+    };
+
+    // Suporte flexível para extensão da foto (jpg, png, jpeg, webp)
+    function handleImgError(imgEl, baseName) {
+      if (!imgEl.dataset.tryStep) {
+        imgEl.dataset.tryStep = '1';
+        imgEl.src = `${baseName}.png`;
+      } else if (imgEl.dataset.tryStep === '1') {
+        imgEl.dataset.tryStep = '2';
+        imgEl.src = `${baseName}.jpeg`;
+      } else if (imgEl.dataset.tryStep === '2') {
+        imgEl.dataset.tryStep = '3';
+        imgEl.src = `${baseName}.webp`;
+      } else {
+        // Fallback temático se o arquivo ainda não foi colocado na pasta
+        imgEl.src = 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=400&q=80';
+      }
+    }
+
+    function handleModalImgError(imgEl) {
+      const baseName = `imagem${activeModalCardId}`;
+      let nextSrc = '';
+      if (!imgEl.dataset.tryStep) {
+        imgEl.dataset.tryStep = '1';
+        nextSrc = `${baseName}.png`;
+      } else if (imgEl.dataset.tryStep === '1') {
+        imgEl.dataset.tryStep = '2';
+        nextSrc = `${baseName}.jpeg`;
+      } else if (imgEl.dataset.tryStep === '2') {
+        imgEl.dataset.tryStep = '3';
+        nextSrc = `${baseName}.webp`;
+      } else {
+        nextSrc = 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=800&q=80';
+      }
+      imgEl.src = nextSrc;
+      const bg = document.getElementById('modalPhotoBg');
+      if (bg) bg.src = nextSrc;
+    }
+
+    /* ========================================================
+       SISTEMA DE ÁUDIO WEB
+       ======================================================== */
+    let soundEnabled = true;
+    let audioCtx = null;
+
+    function getAudioContext() {
+      if (!audioCtx) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (AudioContextClass) {
+          audioCtx = new AudioContextClass();
+        }
+      }
+      if (audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      return audioCtx;
+    }
+
+    function playClickSound() {
+      if (!soundEnabled) return;
+      try {
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(320, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(700, ctx.currentTime + 0.08);
+        gain.gain.setValueAtTime(0.18, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.08);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.08);
+      } catch (e) {}
+    }
+
+    function playWhistleSound() {
+      if (!soundEnabled) return;
+      try {
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        
+        const now = ctx.currentTime;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(2200, now);
+        osc.frequency.setValueAtTime(2600, now + 0.08);
+        osc.frequency.setValueAtTime(2200, now + 0.16);
+        osc.frequency.setValueAtTime(2700, now + 0.24);
+
+        gain.gain.setValueAtTime(0.22, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.38);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.38);
+      } catch (e) {}
+    }
+
+    function playUnlockSound() {
+      if (!soundEnabled) return;
+      try {
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const notes = [523.25, 659.25, 783.99, 1046.50];
+        notes.forEach((freq, idx) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          const startTime = ctx.currentTime + idx * 0.08;
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, startTime);
+          gain.gain.setValueAtTime(0.2, startTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.35);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(startTime);
+          osc.stop(startTime + 0.35);
+        });
+      } catch (e) {}
+    }
+
+    /* ========================================================
+       EFEITO SONORO DE PALMAS (APPLAUSE / CLAPPING)
+       ======================================================== */
+    function playApplauseSound() {
+      if (!soundEnabled) return;
+
+      // 1. Tenta reproduzir arquivo palmas.mp3 se existir na pasta
+      const applauseEl = document.getElementById('applauseAudio');
+      if (applauseEl && typeof applauseEl.play === 'function') {
+        applauseEl.currentTime = 0;
+        applauseEl.volume = 0.85;
+        const playProm = applauseEl.play();
+        if (playProm !== undefined) {
+          playProm.then(() => {
+            return;
+          }).catch(() => {
+            synthesizeRealisticApplause();
+          });
+          return;
+        }
+      }
+      synthesizeRealisticApplause();
+    }
+
+    function synthesizeRealisticApplause() {
+      try {
+        const ctx = getAudioContext();
+        if (!ctx) return;
+        const now = ctx.currentTime;
+
+        // Gera 70 palmas estocásticas simulando multidão aplaudindo e comemorando
+        const totalClaps = 70;
+        const applauseDuration = 3.2;
+
+        for (let i = 0; i < totalClaps; i++) {
+          const timeOffset = (i / totalClaps) * applauseDuration * 0.85 + (Math.random() * 0.45);
+          const clapTime = now + timeOffset;
+
+          const clapLength = 0.028 + Math.random() * 0.028;
+          const bufferSize = Math.floor(ctx.sampleRate * clapLength);
+          const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+          const data = buffer.getChannelData(0);
+
+          for (let j = 0; j < bufferSize; j++) {
+            data[j] = (Math.random() * 2 - 1) * Math.exp(-j / (bufferSize * 0.28));
+          }
+
+          const noiseSource = ctx.createBufferSource();
+          noiseSource.buffer = buffer;
+
+          const filter = ctx.createBiquadFilter();
+          filter.type = 'bandpass';
+          filter.frequency.setValueAtTime(1050 + Math.random() * 850, clapTime);
+          filter.Q.setValueAtTime(2.2 + Math.random() * 0.8, clapTime);
+
+          const gain = ctx.createGain();
+          const baseVol = (timeOffset < 0.4) 
+            ? (timeOffset / 0.4) * 0.22 
+            : (timeOffset > 2.5) 
+              ? Math.max(0.01, (1 - (timeOffset - 2.5) / 0.7) * 0.22)
+              : 0.18 + Math.random() * 0.12;
+
+          gain.gain.setValueAtTime(baseVol, clapTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, clapTime + clapLength);
+
+          noiseSource.connect(filter);
+          filter.connect(gain);
+          gain.connect(ctx.destination);
+
+          noiseSource.start(clapTime);
+          noiseSource.stop(clapTime + clapLength);
+        }
+
+        // Fanfarra comemorativa triunfal de vitória
+        const fanfareNotes = [
+          { f: 523.25, time: 0.08, dur: 0.35, vol: 0.16 }, // Do5
+          { f: 659.25, time: 0.24, dur: 0.35, vol: 0.18 }, // Mi5
+          { f: 783.99, time: 0.40, dur: 0.45, vol: 0.20 }, // Sol5
+          { f: 1046.50, time: 0.60, dur: 1.4, vol: 0.24 }, // Do6
+          { f: 1318.51, time: 0.75, dur: 1.2, vol: 0.18 }  // Mi6
+        ];
+
+        fanfareNotes.forEach(note => {
+          const osc = ctx.createOscillator();
+          const g = ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(note.f, now + note.time);
+          g.gain.setValueAtTime(note.vol, now + note.time);
+          g.gain.exponentialRampToValueAtTime(0.001, now + note.time + note.dur);
+          osc.connect(g);
+          g.connect(ctx.destination);
+          osc.start(now + note.time);
+          osc.stop(now + note.time + note.dur);
+        });
+
+      } catch (err) {
+        console.warn('Erro ao tocar som de palmas:', err);
+      }
+    }
+
+    const audioToggleBtn = document.getElementById('audioToggleBtn');
+    audioToggleBtn.addEventListener('click', () => {
+      soundEnabled = !soundEnabled;
+      audioToggleBtn.textContent = soundEnabled ? '🔊' : '🔇';
+      showToast(soundEnabled ? 'Sons ativados!' : 'Sons desativados!', soundEnabled ? '🔊' : '🔇');
+    });
+
+    /* ========================================================
+       ESTADO DO JOGO / TREINO (META: 300 REPETIÇÕES)
+       ======================================================== */
+    let reps = 0;
+    let powerPerClick = 1;
+    const targetReps = 300; // 3 séries de 100
+
+    let unlockedCards = {
+      1: false,
+      2: false,
+      3: false
+    };
+
+    let activeModalCardId = 1;
+
+    // Elementos DOM
+    const repsDisplay = document.getElementById('reps');
+    const progressBar = document.getElementById('progressBar');
+    const clickBtn = document.getElementById('clickBtn');
+    const clickArea = document.getElementById('clickArea');
+    const mDot1 = document.getElementById('mDot1');
+    const mDot2 = document.getElementById('mDot2');
+    const mDot3 = document.getElementById('mDot3');
+
+    // Falas Motivacionais da Personal Micheline
+    const trainerQuotes = [
+      "BORA JORDANYA! VOCÊ CONSEGUE! 🔥",
+      "A MICHELINE TÁ DE OLHO! NÃO PARA NÃO! 💪",
+      "FORÇA NESSA SÉRIE! TÁ LINDA DEMAIS! 💥",
+      "RESPIRA FUNDO E ESMAGA A META! ⚡",
+      "MAIS UMA REPETIÇÃO PRA CONTA DA MICHELINE! 🏋️‍♀️",
+      "HOJE É O SEU DIA! VOCÊ É GIGANTE! ✨",
+      "MARAVILHOSA E MAROMBADA! ARREBENTA! 🌟",
+      "TÁ PAGO! BORA CONQUISTAR ESSE ANO NOVO! 💖",
+      "SÓ MAIS UMA! DÁ O SEU MÁXIMO, JORDANYA! 🏆"
+    ];
+
+    let currentQuoteIndex = 0;
+    const trainerSpeech = document.getElementById('trainerSpeech');
+    const trainerWidget = document.getElementById('trainerWidget');
+    const trainerAvatar = document.getElementById('trainerAvatar');
+
+    function updateTrainerSpeech(forcedText) {
+      if (forcedText) {
+        trainerSpeech.textContent = `"${forcedText}"`;
+      } else {
+        currentQuoteIndex = (currentQuoteIndex + 1) % trainerQuotes.length;
+        trainerSpeech.textContent = `"${trainerQuotes[currentQuoteIndex]}"`;
+      }
+    }
+
+    /* ========================================================
+       SISTEMA DE MÚSICA DE ACADEMIA (LOCAL + BEAT SINTETIZADO)
+       ======================================================== */
+    const localGymAudio = document.getElementById('localGymAudio');
+    const musicBtn = document.getElementById('musicBtn');
+    const musicLabel = document.getElementById('musicLabel');
+
+    let musicPlaying = false;
+    let musicUsingLocal = false;
+    let synthBeatTimer = null;
+    let synthBeatActive = false;
+    let beatIndex = 0;
+    let musicMasterGain = null;
+
+    function getMusicMasterGain(ctx) {
+      if (!musicMasterGain) {
+        musicMasterGain = ctx.createGain();
+        musicMasterGain.gain.setValueAtTime(0.32, ctx.currentTime);
+        musicMasterGain.connect(ctx.destination);
+      }
+      return musicMasterGain;
+    }
+
+    // Gerador Procedural de Beat Eletrônico de Treino (126 BPM)
+    function startSynthGymBeat() {
+      if (synthBeatActive) return;
+      const ctx = getAudioContext();
+      if (!ctx) return;
+      synthBeatActive = true;
+      beatIndex = 0;
+
+      const tempo = 126;
+      const stepTime = (60 / tempo) / 4; // 16th notes (~119ms)
+
+      function scheduleNextBeat() {
+        if (!synthBeatActive) return;
+        const now = ctx.currentTime;
+        const master = getMusicMasterGain(ctx);
+        const step = beatIndex % 16;
+
+        // 1. Kick Drum (4 on the floor: steps 0, 4, 8, 12)
+        if (step % 4 === 0) {
+          const kickOsc = ctx.createOscillator();
+          const kickGain = ctx.createGain();
+          kickOsc.frequency.setValueAtTime(145, now);
+          kickOsc.frequency.exponentialRampToValueAtTime(40, now + 0.1);
+          kickGain.gain.setValueAtTime(0.48, now);
+          kickGain.gain.exponentialRampToValueAtTime(0.001, now + 0.13);
+          kickOsc.connect(kickGain);
+          kickGain.connect(master);
+          kickOsc.start(now);
+          kickOsc.stop(now + 0.13);
+        }
+
+        // 2. Open Hi-Hat (offbeat: steps 2, 6, 10, 14)
+        if (step % 4 === 2) {
+          const bufferSize = Math.floor(ctx.sampleRate * 0.04);
+          const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+          const data = buffer.getChannelData(0);
+          for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
+          const noise = ctx.createBufferSource();
+          noise.buffer = buffer;
+          const filter = ctx.createBiquadFilter();
+          filter.type = 'highpass';
+          filter.frequency.setValueAtTime(7500, now);
+          const hatGain = ctx.createGain();
+          hatGain.gain.setValueAtTime(0.18, now);
+          hatGain.gain.exponentialRampToValueAtTime(0.001, now + 0.045);
+          noise.connect(filter);
+          filter.connect(hatGain);
+          hatGain.connect(master);
+          noise.start(now);
+        }
+
+        // 3. Closed Hi-Hat nos outros 16ths
+        if (step % 2 === 1) {
+          const bufferSize = Math.floor(ctx.sampleRate * 0.02);
+          const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+          const data = buffer.getChannelData(0);
+          for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
+          const noise = ctx.createBufferSource();
+          noise.buffer = buffer;
+          const filter = ctx.createBiquadFilter();
+          filter.type = 'highpass';
+          filter.frequency.setValueAtTime(9500, now);
+          const hatGain = ctx.createGain();
+          hatGain.gain.setValueAtTime(0.08, now);
+          hatGain.gain.exponentialRampToValueAtTime(0.001, now + 0.025);
+          noise.connect(filter);
+          filter.connect(hatGain);
+          hatGain.connect(master);
+          noise.start(now);
+        }
+
+        // 4. Bassline Eletro em E menor
+        const bassNotes = [41.2, 41.2, 49.0, 41.2, 41.2, 55.0, 41.2, 41.2, 41.2, 41.2, 49.0, 41.2, 55.0, 73.4, 61.7, 41.2];
+        const freq = bassNotes[step];
+        if (freq) {
+          const bassOsc = ctx.createOscillator();
+          const bassFilter = ctx.createBiquadFilter();
+          const bassGain = ctx.createGain();
+          bassOsc.type = 'sawtooth';
+          bassOsc.frequency.setValueAtTime(freq, now);
+          bassFilter.type = 'lowpass';
+          bassFilter.frequency.setValueAtTime(450, now);
+          bassFilter.frequency.exponentialRampToValueAtTime(140, now + 0.1);
+          bassGain.gain.setValueAtTime(0.26, now);
+          bassGain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+          bassOsc.connect(bassFilter);
+          bassFilter.connect(bassGain);
+          bassGain.connect(master);
+          bassOsc.start(now);
+          bassOsc.stop(now + 0.12);
+        }
+
+        beatIndex++;
+        synthBeatTimer = setTimeout(scheduleNextBeat, stepTime * 1000);
+      }
+
+      scheduleNextBeat();
+    }
+
+    function stopSynthGymBeat() {
+      synthBeatActive = false;
+      if (synthBeatTimer) {
+        clearTimeout(synthBeatTimer);
+        synthBeatTimer = null;
+      }
+    }
+
+    // Controle Principal de Música
+    function toggleMusic(forceState) {
+      const targetState = (forceState !== undefined) ? forceState : !musicPlaying;
+
+      if (targetState) {
+        // Tenta tocar arquivo local musica.mp3 se existir
+        getAudioContext();
+        localGymAudio.volume = 0.6;
+        const playPromise = localGymAudio.play();
+
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            musicUsingLocal = true;
+            setMusicUI(true);
+          }).catch(() => {
+            // Se musica.mp3 não estiver presente, ativa o beat de sintetizador imediatamente!
+            musicUsingLocal = false;
+            startSynthGymBeat();
+            setMusicUI(true);
+          });
+        }
+      } else {
+        if (localGymAudio) localGymAudio.pause();
+        stopSynthGymBeat();
+        setMusicUI(false);
+      }
+    }
+
+    function setMusicUI(isPlaying) {
+      musicPlaying = isPlaying;
+      if (isPlaying) {
+        musicBtn.classList.add('playing');
+        musicLabel.textContent = 'Música: ON 🎵';
+      } else {
+        musicBtn.classList.remove('playing');
+        musicLabel.textContent = 'Música: OFF';
+      }
+    }
+
+    // Suaviza a música quando abre a mensagem para facilitar a leitura
+    function duckMusic(isDucked) {
+      if (localGymAudio && !localGymAudio.paused) {
+        localGymAudio.volume = isDucked ? 0.18 : 0.6;
+      }
+      if (musicMasterGain && audioCtx) {
+        musicMasterGain.gain.setValueAtTime(isDucked ? 0.08 : 0.32, audioCtx.currentTime);
+      }
+    }
+
+    // Toque na Personal Micheline (+3 Reps diretas + BOOST 2X por 6 segundos!)
+    let michelineBoostActive = false;
+    let michelineBoostTimer = null;
+    let michelineCooldown = false;
+    const boostPill = document.getElementById('boostPill');
+
+    function updateBoostUI() {
+      if (boostPill) {
+        boostPill.style.display = michelineBoostActive ? 'inline-flex' : 'none';
+      }
+    }
+
+    trainerWidget.addEventListener('click', () => {
+      // Inicia a música no primeiro toque caso ainda não esteja tocando
+      if (!musicPlaying) {
+        toggleMusic(true);
+      }
+
+      if (michelineCooldown) return;
+      michelineCooldown = true;
+      setTimeout(() => { michelineCooldown = false; }, 800);
+
+      // Concede +3 reps de incentivo imediato
+      reps += 3;
+      updateUI();
+
+      // Ativa BOOST DE 2X por 6 segundos!
+      michelineBoostActive = true;
+      if (michelineBoostTimer) clearTimeout(michelineBoostTimer);
+      michelineBoostTimer = setTimeout(() => {
+        michelineBoostActive = false;
+        updateBoostUI();
+      }, 6000);
+      updateBoostUI();
+
+      trainerAvatar.classList.remove('shouting');
+      void trainerAvatar.offsetWidth;
+      trainerAvatar.classList.add('shouting');
+
+      updateTrainerSpeech("FORÇA JORDANYA! BOOST 2X ATIVADO!");
+      playWhistleSound();
+
+      if (navigator.vibrate) {
+        navigator.vibrate([40, 30, 40]);
+      }
+
+      showToast('🔥 Boost da Micheline ativado: Dobro de Reps no treino!', '⚡');
+    });
+
+    // Clique no Botão Principal (Puxar Ferro)
+    clickBtn.addEventListener('click', (e) => {
+      // Auto-inicia a música no primeiro clique
+      if (!musicPlaying) {
+        toggleMusic(true);
+      }
+
+      const multiplier = michelineBoostActive ? 2 : 1;
+      const added = powerPerClick * multiplier;
+      reps += added;
+      updateUI();
+      createFloatingText(e, added);
+      playClickSound();
+
+      if (navigator.vibrate) {
+        navigator.vibrate(25);
+      }
+
+      if (reps % 10 === 0) {
+        updateTrainerSpeech();
+      }
+    });
+
+    function createFloatingText(e, amount) {
+      const text = document.createElement('div');
+      text.className = 'floating-text';
+      text.innerText = `+${amount || powerPerClick}`;
+      if (michelineBoostActive) {
+        text.style.color = '#f59e0b'; // Dourado durante o boost
+      }
+
+      const rect = clickArea.getBoundingClientRect();
+      const x = (e.clientX || (rect.left + rect.width / 2)) - rect.left;
+      const y = (e.clientY || (rect.top + rect.height / 2)) - rect.top;
+
+      text.style.left = `${x}px`;
+      text.style.top = `${y}px`;
+
+      clickArea.appendChild(text);
+      setTimeout(() => text.remove(), 850);
+    }
+
+    function buyUpgrade(id, cost, addPower) {
+      if (reps >= cost) {
+        reps -= cost;
+        powerPerClick += addPower;
+
+        const btn = document.getElementById(`upg${id}`);
+        if (btn) {
+          btn.disabled = true;
+          btn.style.display = 'none';
+        }
+
+        updateUI();
+        playUnlockSound();
+        showToast(`Upgrade ativado! Agora você faz +${powerPerClick} reps por toque!`, '⚡');
+
+        confetti({
+          particleCount: 25,
+          spread: 50,
+          origin: { y: 0.7 }
+        });
+      }
+    }
+
+    function updateUI() {
+      repsDisplay.innerText = reps;
+
+      const progressPercent = Math.min(100, Math.round((reps / targetReps) * 100));
+      progressBar.style.width = `${progressPercent}%`;
+
+      const upg1 = document.getElementById('upg1');
+      const upg2 = document.getElementById('upg2');
+      const upg3 = document.getElementById('upg3');
+
+      if (upg1 && upg1.style.display !== 'none') upg1.disabled = reps < 25;
+      if (upg2 && upg2.style.display !== 'none') upg2.disabled = reps < 75;
+      if (upg3 && upg3.style.display !== 'none') upg3.disabled = reps < 150;
+
+      // Banner de Conclusão na Tela Inicial
+      const completionBanner = document.getElementById('mainCompletionBanner');
+      if (completionBanner) {
+        completionBanner.style.display = reps >= targetReps ? 'flex' : 'none';
+      }
+
+      checkMilestones();
+    }
+
+    /* ========================================================
+       DESBLOQUEIO DE SÉRIES DE 100 EM 100 REPETIÇÕES
+       ======================================================== */
+    function checkMilestones() {
+      // Série 1: 100 Reps
+      if (reps >= 100 && !unlockedCards[1]) {
+        unlockAndShowMessage(1);
+      }
+      // Série 2: 200 Reps
+      if (reps >= 200 && !unlockedCards[2]) {
+        unlockAndShowMessage(2);
+      }
+      // Série 3: 300 Reps (Meta Final Completa!)
+      if (reps >= 300 && !unlockedCards[3]) {
+        unlockAndShowMessage(3);
+      }
+    }
+
+    function unlockAndShowMessage(num) {
+      unlockedCards[num] = true;
+      updateSummaryCardUI(num);
+
+      if (num === 1) {
+        mDot1.classList.add('unlocked');
+        mDot1.textContent = '100 Reps ✅';
+        playUnlockSound();
+        confetti({ particleCount: 70, spread: 60, origin: { y: 0.5 } });
+      } else if (num === 2) {
+        mDot2.classList.add('unlocked');
+        mDot2.textContent = '200 Reps ✅';
+        playUnlockSound();
+        confetti({ particleCount: 90, spread: 70, origin: { y: 0.5 } });
+      } else if (num === 3) {
+        mDot3.classList.add('unlocked');
+        mDot3.textContent = '300 Reps 🏆';
+        document.getElementById('scoreTargetText').textContent = 'Treino Completo! 300 Reps! 🎉';
+        playUnlockSound();
+        playApplauseSound();
+        updateTrainerSpeech("PARABÉNS, JORDANYA! VOCÊ ZEROU AS 3 SÉRIES DA MICHELINE!");
+        fireGrandConfetti();
+      }
+
+      // Abre automaticamente a mensagem na TELA INTEIRA!
+      openFullScreenMessage(num);
+    }
+
+    function updateSummaryCardUI(num) {
+      const sumCard = document.getElementById(`sumCard${num}`);
+      const sumLock = document.getElementById(`sumLock${num}`);
+      const sumStatus = document.getElementById(`sumStatus${num}`);
+      const sumBtn = document.getElementById(`sumBtn${num}`);
+
+      if (sumCard) {
+        sumCard.classList.remove('locked');
+      }
+      if (sumLock) {
+        sumLock.style.display = 'none';
+      }
+      if (sumStatus) {
+        sumStatus.innerHTML = '<span style="color: #38bdf8; font-weight:700;">Desbloqueada! Toque para ver em tela cheia</span>';
+      }
+      if (sumBtn) {
+        sumBtn.style.display = 'flex';
+      }
+    }
+
+    function handleSummaryCardClick(num) {
+      if (unlockedCards[num] || reps >= messagesData[num].reqReps) {
+        openFullScreenMessage(num);
+      } else {
+        const req = messagesData[num].reqReps;
+        const faltam = req - reps;
+        showToast(`Faltam ${faltam} reps para desbloquear a Série ${num}! Continue com a Micheline! 💪`, '🔒');
+      }
+    }
+
+    /* ========================================================
+       MODAL DE TELA INTEIRA (FULL SCREEN MESSAGE)
+       ======================================================== */
+    const fullscreenModal = document.getElementById('fullscreenModal');
+    const modalBadge = document.getElementById('modalBadge');
+    const modalHeadline = document.getElementById('modalHeadline');
+    const modalMessageText = document.getElementById('modalMessageText');
+    const modalPhotoImg = document.getElementById('modalPhotoImg');
+    const modalCongratsCard = document.getElementById('modalCongratsCard');
+    const btnContinueTreino = document.getElementById('btnContinueTreino');
+    const btnReiniciarTreino = document.getElementById('btnReiniciarTreino');
+    const modalNavPrev = document.getElementById('modalNavPrev');
+    const modalNavNext = document.getElementById('modalNavNext');
+
+    function openFullScreenMessage(num) {
+      activeModalCardId = num;
+      const data = messagesData[num];
+
+      modalBadge.className = `modal-badge ${data.badgeClass}`;
+      modalBadge.textContent = `${data.badgeIcon} ${data.part}`;
+
+      modalHeadline.textContent = data.headline;
+      modalMessageText.textContent = data.text;
+
+      // Define caminho das fotos (imagem1, imagem2, imagem3)
+      modalPhotoImg.dataset.tryStep = '';
+      modalPhotoImg.src = `${data.imageName}.jpg`;
+      const modalPhotoBg = document.getElementById('modalPhotoBg');
+      if (modalPhotoBg) {
+        modalPhotoBg.src = `${data.imageName}.jpg`;
+      }
+
+      // Atualiza navegação entre séries no modal
+      updateModalNavUI(num);
+
+      // Verificação do final das três mensagens (Série 3)
+      if (num === 3) {
+        // Exibe Parabéns por concluir seu treino
+        if (modalCongratsCard) modalCongratsCard.style.display = 'flex';
+        // Substitui o botão Continuar pelo botão Reiniciar Treino
+        if (btnContinueTreino) btnContinueTreino.style.display = 'none';
+        if (btnReiniciarTreino) btnReiniciarTreino.style.display = 'flex';
+
+        // Toca som de palmas e chuva de confetes
+        playApplauseSound();
+        fireGrandConfetti();
+      } else {
+        // Mensagens 1 e 2: mantém fluxo de continuar treino
+        if (modalCongratsCard) modalCongratsCard.style.display = 'none';
+        if (btnContinueTreino) btnContinueTreino.style.display = 'flex';
+        if (btnReiniciarTreino) btnReiniciarTreino.style.display = 'none';
+      }
+
+      fullscreenModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      duckMusic(true); // Suaviza o volume da música para ler
+    }
+
+    function updateModalNavUI(currentNum) {
+      if (modalNavPrev) {
+        modalNavPrev.disabled = currentNum <= 1;
+      }
+      if (modalNavNext) {
+        modalNavNext.disabled = currentNum >= 3;
+      }
+
+      for (let i = 1; i <= 3; i++) {
+        const dot = document.getElementById(`navDot${i}`);
+        if (dot) {
+          dot.classList.remove('active', 'locked');
+          if (i === currentNum) {
+            dot.classList.add('active');
+          } else if (!unlockedCards[i] && reps < messagesData[i].reqReps) {
+            dot.classList.add('locked');
+          }
+        }
+      }
+    }
+
+    function navigateModalMessage(direction) {
+      const targetId = activeModalCardId + direction;
+      if (targetId < 1 || targetId > 3) return;
+
+      if (!unlockedCards[targetId] && reps < messagesData[targetId].reqReps) {
+        const req = messagesData[targetId].reqReps;
+        const faltam = req - reps;
+        showToast(`Faltam ${faltam} reps para desbloquear a Série ${targetId}! Continue com a Micheline! 💪`, '🔒');
+        return;
+      }
+
+      openFullScreenMessage(targetId);
+    }
+
+    function jumpToModalMessage(num) {
+      if (unlockedCards[num] || reps >= messagesData[num].reqReps) {
+        openFullScreenMessage(num);
+      } else {
+        const req = messagesData[num].reqReps;
+        const faltam = req - reps;
+        showToast(`Faltam ${faltam} reps para desbloquear a Série ${num}! Continue com a Micheline! 💪`, '🔒');
+      }
+    }
+
+    function closeFullScreenMessage(silent = false) {
+      fullscreenModal.classList.remove('active');
+      document.body.style.overflow = 'auto';
+      duckMusic(false); // Retoma o som de academia com energia total
+
+      if (!silent) {
+        playClickSound();
+        if (reps >= targetReps) {
+          showToast('Treino concluído com sucesso! Parabéns, Jordanya! 🏆🎉', '✨');
+          updateTrainerSpeech("PARABÉNS, JORDANYA! VOCÊ ZEROU AS 3 SÉRIES!");
+        } else {
+          showToast('Treino retomado! Bora para a próxima série! 🏋️‍♀️✨', '💪');
+          updateTrainerSpeech("VAI JORDANYA! RUMO À PRÓXIMA SÉRIE!");
+        }
+      }
+    }
+
+    /* ========================================================
+       REINICIAR TREINO (RESET COMPLETO DO JOGUINHO)
+       ======================================================== */
+    function restartWorkout() {
+      // Apito inicial da Personal Micheline
+      playWhistleSound();
+
+      // Zera o placar e multiplicador
+      reps = 0;
+      powerPerClick = 1;
+      unlockedCards = {
+        1: false,
+        2: false,
+        3: false
+      };
+
+      // Reseta marcos na barra de progresso
+      mDot1.classList.remove('unlocked');
+      mDot1.textContent = '100 Reps 🔥';
+      mDot2.classList.remove('unlocked');
+      mDot2.textContent = '200 Reps 💪';
+      mDot3.classList.remove('unlocked');
+      mDot3.textContent = '300 Reps ✨';
+
+      const scoreTarget = document.getElementById('scoreTargetText');
+      if (scoreTarget) scoreTarget.textContent = 'Meta: 300 Reps (3 Séries de 100)';
+
+      // Restaura os cards no mural para o estado bloqueado
+      for (let i = 1; i <= 3; i++) {
+        const sumCard = document.getElementById(`sumCard${i}`);
+        const sumLock = document.getElementById(`sumLock${i}`);
+        const sumStatus = document.getElementById(`sumStatus${i}`);
+        const sumBtn = document.getElementById(`sumBtn${i}`);
+
+        if (sumCard) sumCard.classList.add('locked');
+        if (sumLock) sumLock.style.display = 'flex';
+        if (sumStatus) sumStatus.textContent = `Requer ${messagesData[i].reqReps} Repetições`;
+        if (sumBtn) sumBtn.style.display = 'none';
+      }
+
+      // Restaura os botões de suplementação
+      const upg1 = document.getElementById('upg1');
+      const upg2 = document.getElementById('upg2');
+      const upg3 = document.getElementById('upg3');
+      if (upg1) { upg1.style.display = 'flex'; upg1.disabled = true; }
+      if (upg2) { upg2.style.display = 'flex'; upg2.disabled = true; }
+      if (upg3) { upg3.style.display = 'flex'; upg3.disabled = true; }
+
+      // Reseta boost da Micheline se estivesse ativo
+      michelineBoostActive = false;
+      if (michelineBoostTimer) clearTimeout(michelineBoostTimer);
+      updateBoostUI();
+
+      // Fecha o modal em tela cheia silenciosamente
+      closeFullScreenMessage(true);
+
+      // Atualiza interface geral
+      updateUI();
+
+      // Nova fala estimulante da Personal
+      updateTrainerSpeech("NOVO TREINO INICIADO! BORA DE NOVO, JORDANYA! 🔥");
+      showToast('Treino reiniciado com sucesso! Bora bater a meta mais uma vez! 🏋️‍♀️✨', '🔄');
+
+      // Rola suavemente até o topo
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function unlockAllMessages() {
+      reps = Math.max(reps, 300);
+      updateUI();
+      if (!unlockedCards[1]) unlockAndShowMessage(1);
+      if (!unlockedCards[2]) unlockAndShowMessage(2);
+      if (!unlockedCards[3]) unlockAndShowMessage(3);
+
+      openFullScreenMessage(1);
+      showToast('Todas as 3 séries foram liberadas! 💖', '✨');
+    }
+
+    function fireGrandConfetti() {
+      const duration = 3.5 * 1000;
+      const end = Date.now() + duration;
+
+      (function frame() {
+        confetti({
+          particleCount: 5,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 },
+          colors: ['#ec4899', '#a855f7', '#06b6d4', '#fbbf24']
+        });
+        confetti({
+          particleCount: 5,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 },
+          colors: ['#ec4899', '#a855f7', '#06b6d4', '#fbbf24']
+        });
+
+        if (Date.now() < end) {
+          requestAnimationFrame(frame);
+        }
+      }());
+    }
+
+    function copyCurrentModalMessage() {
+      const text = modalMessageText.innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('Mensagem copiada para a área de transferência!', '📋');
+      }).catch(() => {
+        showToast('Erro ao copiar mensagem automaticamente.', '⚠️');
+      });
+    }
+
+    /* ========================================================
+       TOAST DE NOTIFICAÇÃO
+       ======================================================== */
+    let toastTimeout = null;
+    function showToast(message, icon = '✨') {
+      const toast = document.getElementById('toastBox');
+      const toastIcon = document.getElementById('toastIcon');
+      const toastMsg = document.getElementById('toastMsg');
+
+      toastIcon.textContent = icon;
+      toastMsg.textContent = message;
+
+      toast.classList.add('show');
+      if (toastTimeout) clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3200);
+    }
+
+    // Inicialização
+    updateUI();
+  </script>
+</body>
+</html>
